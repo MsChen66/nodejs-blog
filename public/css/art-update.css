@@ -1,0 +1,12 @@
+
+#main{
+    width:800px;
+    height:1200px;
+    margin:100px auto;
+}
+#main input{
+    display:block;
+}
+#main textarea{
+    display:block;
+}

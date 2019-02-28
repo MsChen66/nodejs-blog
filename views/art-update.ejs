@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="/css/art-update.css">
+<link rel="stylesheet" href="/css/public.css">
+
+<body>
+    <section id="main">
+        <input type="hidden" id="id" value="<%= data._id%>">
+        标题：<input type="text" id="title" value="<%= data.title%>">
+        内容：<textarea name="" id="content" cols="60" rows="20"><%= data.content%></textarea>
+        浏览次数：<input type="text" id="count" value="<%= data.pv%>">
+        发表时间：<input type="text" id="time" value="<%= data.time%>">
+        <input type="submit" value="确认提交" id="btn">
+        <input type="button" value="返回" id="return">
+    </section>
+</body>
+<script src="/js/jquery.min.js"></script>
+<script>
+    $('#btn').click(function () {
+        console.log(1);
+        $.ajax({
+            url: '/admin/api-art-update',
+            type: 'post',
+            data: {
+                id:$('#id').val(),
+                title:$('#title').val(),
+                content:$('#content').val(),
+                count:$('#count').val(),
+                time:$('#time').val()
+            },
+            success: function (res) {
+                console.log(res);
+                if (res.code == 1) {
+                    alert(res.msg)
+                    location.href = '/admin/article';
+                } else {
+                    alert(res.msg)
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    })
+</script>
+</html>

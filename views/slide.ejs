@@ -1,0 +1,47 @@
+<%include art-header%>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="art-info">
+        <table>
+            <tr>
+                <th>标题名</th>
+                <th>用户</th>
+                <th>操作</th>
+            </tr>
+            <% for(var i = 0;i <data.length;i++) { %>
+            <tr>
+                <td>
+                    <%= data[i].title%>
+                </td>
+                <td class="uname">
+                    <%= data[i].username%>
+                </td>
+                <td><a href="/admin/ins-slide/<%= data[i]._id%>" class="insert">添加</a></td>
+            </tr>
+            <% } %>
+        </table>
+    </div>
+    
+</div>
+</div>
+</div>
+</body>
+    <script src="/js/jquery.min.js"></script>
+    <!-- <script>
+        $('.insert').click(function () {
+            console.log(1);
+        $.ajax({
+            url: '/admin/ins-slide',
+            type: 'post',
+            data: {
+                aid:data[i]._id
+            },
+            success: function (res) {
+                console.log(1);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    })
+    </script> -->
+</html>

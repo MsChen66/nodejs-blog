@@ -1,0 +1,91 @@
+<%include a-header%>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+    <div class="insert">
+            <h2 class="sub-header">用户账号信息</h2>
+            <a href="/admin/insert">添加用户</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>用户名</th>
+                    <th>密码</th>
+                    <th>注册时间</th>
+                    <th>修改</th>
+                    <th>删除</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i = 0;i <result.length;i++) { %>
+                    <tr>
+                        <td><%= result[i]._id%></td>
+                        <td class="uname"><%= result[i].username%></td>
+                        <td><%= result[i].password%></td>
+                        <td><%= result[i].time%></td>
+                        <td><a href="/admin/update/<%= result[i]._id%>">修改</a></td>
+                        <td><a href="/admin/users/<%= result[i]._id%>" class="delete">删除</a></td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <div class="page">
+                <%if(pageNum >1){%>
+                    <a href="<%= preUrl%>">上一页</a>
+                <% } %>
+                <% if(pageNum == i) {%>
+                    <%= pageNum%>
+                <% }else { %>
+                    <a href="/admin/page/<%= pageNum%>"><%= pageNum%></a>
+                <% } %>
+                <a href="<%= nextUrl %>">下一页</a>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script>
+    $('.delete').click(function(){
+        $(this).parent().parent().remove();
+        if(code=1){
+            alert('删除成功！');
+            location.href= '/admin/users'
+        }else{
+            console.log(1)
+        }
+    })
+    $('.selector').click(function(){
+        var uname = $('tbody tr .uname');
+        console.log(uname);
+        $('.table-striped tbody').html('');
+        $('.page').html('');
+        var getName = $('.form-control').val();
+        console.log(getName);
+        var str = '';
+        for(let i = 0;i < uname.length;i++){
+            // var arr = [];
+            // arr.push($(uname[i]).html());
+            // console.log($(uname[0]).html());
+            if($(uname[i]).html()==getName){
+                console.log(uname[i]);
+                // str = `<tr>
+                //         ${'uname[i]'}
+                //     </tr>`;
+                //     console.log(str);
+                // $('.table-striped tbody').html(str);
+                var tr = $(uname[i]).parent();               
+                $('.table-striped tbody').append(tr);
+                break;
+            }
+        }
+        if($('.table-striped tbody').html()== ''){
+            $('.table-striped tbody').html('没有这个人的信息')
+        }       
+    })
+</script>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<% include header %>
+
+<h2>
+    <%= title  %>
+</h2>
+
+
+<div class="container">
+
+    <form class="form-signin">
+        <h2 class="form-signin-heading">请注册</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="text" id="un" class="form-control" placeholder="用户名" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="pd" class="form-control" placeholder="密码" required>
+
+
+        <h3>普通验证码</h3>
+        <div id="mpanel2">
+        </div>
+
+        <button id="btn" class="btn btn-lg btn-primary btn-block" type="button">注册</button>
+    </form>
+
+</div> <!-- /container -->
+<script type="text/javascript" src="/js/verify.js"></script>
+<script>
+    // ajax  post 
+    $('#mpanel2').codeVerify({
+        type: 1,
+        width: '400px',
+        height: '50px',
+        fontSize: '30px',
+        codeLength: 6,
+        btnId: 'btn',
+        ready: function () {
+        },
+        success: function () {
+        },
+        error: function () {
+            alert('验证码不匹配！');
+        }
+    });
+    $('#btn').click(function () {
+
+        $.ajax({
+            url: '/users/api-register',
+            type: 'post',
+            data: {
+                un: $('#un').val(),
+                pd: $('#pd').val()
+            },
+            success: function (res) {
+                console.log(res);
+                if (res.code == 1) {
+                    alert(res.msg)
+                    location.href = '/users/login';
+                } else {
+                    alert(res.msg)
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+
+        })
+    })
+
+</script>
+
+
+</body>
+
+</html>

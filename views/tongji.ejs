@@ -1,0 +1,88 @@
+<% include header %>
+
+
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main1" style="width:600px;height:400px;float:left;"></div>
+<div id="main2" style="width:600px;height:400px;float:left;"></div>
+<div id="main3" style="width:600px;height:400px;float:left;"></div>
+<script>
+    $.get({
+        url: '/users/api/tj-a1',
+        success: function (res) {
+            console.log(res);
+            var dataX = res.map((v) => {
+                if (v._id) {
+                    return v._id.slice(5)
+                } else {
+                    return '未知'
+                }
+            })
+            console.log(dataX);
+            var dataY = res.map((v) => {
+                return v.num;
+            })
+            console.log(dataY);
+            //基于准备好的dom，初始化echarts实例
+            var myChart1 = echarts.init(document.getElementById('main1'));
+            var myChart2 = echarts.init(document.getElementById('main2'));
+            var myChart3 = echarts.init(document.getElementById('main3'));
+            // 指定图标的配置项和数据
+            var option3 ={
+                title:{
+                    text:'每天的注册量'
+                },
+                tooltip:{},
+                legend:{
+                    data:['注册量']
+                },
+                xAxis:{
+                    data:dataX
+                },
+                yAxis:{},
+                series:[{
+                    name:'注册量',
+                    type:'bar',
+                    data:dataY
+                }]
+
+            };
+            option2 = {
+                xAxis: {
+                    type: 'category',
+                    data: dataX
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    data: dataY,
+                    type: 'line'
+                }]
+            };
+            option1 = {
+                xAxis: {
+                    type: 'category',
+                    data: dataX
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    data: dataY,
+                    type: 'line',
+                    smooth: true
+                }]
+            };
+            //使用刚指定的配置项和数据显示图标
+            myChart1.setOption(option1);
+            myChart2.setOption(option2);
+            myChart3.setOption(option3);
+        }
+    })
+</script>
+
+
+</body>
+
+</html>

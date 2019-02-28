@@ -1,0 +1,66 @@
+.table-responsive .update {
+    width:500px;
+    margin:80px auto;
+    box-shadow:0 0 10px 4px #ededed;
+    padding:10px 0;
+}
+.table-responsive .update p{
+    width:500px;
+    height:50px;
+    margin:20px 10px;
+}
+.table-responsive .update p span{
+    float:left;
+    color:#666;
+    font-size:18px;
+    line-height:50px;
+    margin:0 8px 0 8px;
+
+}
+.table-responsive .update p input{
+    float:right;
+    width:370px;
+    height:48px;
+    appearance:none;  
+    border:1px solid #99f;
+    color:#666;
+    font-size:14px;
+    line-height:48px;
+    text-indent:4px;
+    margin-right:20px;
+    border-radius:24px;
+    outline: none;
+}
+.table-responsive .update .sub{
+    width:500px;
+    height:50px;
+    margin:10px;
+}
+.table-responsive .update .sub input{
+    border:0;
+    width:150px;
+    background:#f99;
+    border-radius:10px;
+    height:50px;
+    margin:0 50px;
+    float:left;
+    color:#666;
+    font-size:18px;
+   
+    line-height:50px;
+    font-weight:600;
+}
+.table-responsive .update .sub a{
+    width:150px;
+    background:#f99;
+    border-radius:10px;
+    height:50px;
+    margin:0 50px;
+    float:left;
+    text-align:center;
+    color:#666;
+    font-size:18px;
+    line-height:50px;
+    font-weight:600;
+    text-decoration:none;
+}

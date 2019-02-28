@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var arr = [{
+            username: 'zhangsan',
+            age: 18
+        }, {
+            username: 'lisi',
+            age: 17
+        }, {
+            username: 'wangwu',
+            age: 16
+        }]
+        var res = arr.find(function (v, i) {
+            return v.age == 18
+        })
+        var index = arr.findIndex(function (v, i) {
+            return v.age == 18
+        })
+        console.log(index);
+        var url = 'http://jx.xuzhixiang.top/ap/api/all-province.php';
+        async function getXian() {
+            var url = 'http://jx.xuzhixiang.top/ap/api/all-province.php';
+            var res1 = await axios.get(url);
+            console.log(res1.data);
+            var r = res1.data.data.find((v) => {
+                return v.areaName == '安徽省'
+            })
+            var url2 = 'http://jx.xuzhixiang.top/ap/api/all-city-of-province.php?provinceid='+r.areaId;
+            var res2 = await axios.get(url2);
+            console.log(res2.data);
+        }
+        getXian()
+    </script>
+</body>
+
+</html>

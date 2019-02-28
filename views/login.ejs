@@ -1,0 +1,89 @@
+<% include header %>
+<h2>
+    <%= title %>
+</h2>
+
+
+
+<div class="container">
+
+    <form class="form-signin">
+        <h2 class="form-signin-heading">请登录</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="text" id="un" class="form-control" placeholder="用户名" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="pd" class="form-control" placeholder="密码" required>
+        <h3>点选验证码</h3>
+        <div id="mpanel5" style="margin-top:50px;">
+        </div>
+        <button id="btn" class="btn btn-lg btn-primary btn-block" type="button">登录</button>
+    </form>
+
+</div> <!-- /container -->
+
+<!-- 
+    <input type="text" name="un" id="un">
+    <input type="text" name="pd" id="pd">
+    <input type="button" value="登录" id="btn"> -->
+<script type="text/javascript" src="/js/verify.js"></script>
+<script>
+    $('#mpanel5').pointsVerify({
+        defaultNum: 4,	//默认的文字数量
+        checkNum: 2,	//校对的文字数量
+        vSpace: 5,	//间隔
+        imgUrl:'/images/',
+        imgName: ['1.jpg', '2.jpg'],
+        imgSize: {
+            width: '600px',
+            height: '200px',
+        },
+        barSize: {
+            width: '600px',
+            height: '40px',
+        },
+        ready: function () {
+        },
+        success: function () {
+            // ajax  post 
+            $('#btn').click(function () {
+                $.ajax({
+                    url: '/users/api-login',
+                    type: 'post',
+                    data: {
+                        un: $('#un').val(),
+                        pd: $('#pd').val()
+                    },
+                    success: function (res) {
+                        console.log(res);
+                        if(res.code == 1){
+                            if(res.isAdmin){
+                                alert(res.msg);
+                                location.href="/admin/";
+                            }else{
+                                alert(res.msg);
+                                location.href="/users/";
+                            }
+                        }else{
+                            alert(res.msg)
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+
+                })
+            })
+        },
+        error: function () {
+            //		        	alert('验证失败！');
+        }
+
+    });
+
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+<%include art-header%>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <ul class="list">
+        <% for(var i = 0;i < data.length;i++) {%>
+        <li>
+            <div class="aside"><img src="/images/f10.jpg" alt=""></div>
+            <div class="c-body">
+                <div class=" info">
+                    <a href="#" class="username">
+                        <%if( data[i].username ) {%>
+                        <%= data[i].username %>
+                        <% }else { %>
+                        <%= name%>
+                        <% }%>
+                    </a>
+                    <span>
+                        <%= formatTime(new Date(data[i].time)) %></span>
+                </div>
+                <div class="title"><a href="/users/article/<%= data[i]._id %>">
+                        <%= data[i].title %></a></div>
+                <div class="count">浏览次数：
+                    <%if( data[i].pv ) {%>
+                    <%= data[i].pv %>
+                    <% }else { %>
+                    0
+                    <% }%>
+                </div>
+                <div class="opr">
+                    <a href="/admin/art-update/<%= data[i]._id%>" class="update">修改</a>
+                    <a href="/admin/article/<%= data[i]._id%>" class="delete">删除</a>
+                </div>
+            </div>
+        </li>
+        <% }%>
+    </ul>
+</div>
+</div>
+</div>
+<script src="/js/jquery.min.js"></script>
+<script>
+    function formatTime(date) {
+        var y = date.getFullYear();
+        var m = date.getMonth();
+        var d = date.getDate();
+        var h = date.getHours();
+        var mi = date.getMinutes();
+
+        return y + '-' + m + '-' + d + ' ' + h + ':' + mi;
+
+    }
+    $('.opr .delete').click(function () {
+        alert('删除成功');
+    })
+    $('.selector').click(function () {
+        console.log($('.form-control').val());
+        if ($('.form-control').val() == '') {
+            alert('输入的内容不能为空');
+        } else {
+            $.ajax({
+                url: '/admin/art-select',
+                type: 'post',
+                data: {
+                    seleName: $('.form-control').val(),
+                },
+                success: function (res) {
+                    if (res.data1 == undefined) {
+                        alert('该用户不存在')
+                    } else {
+                        $('.list').html('');
+                        var str = '';
+                        for (var i = 0; i < res.data1.length; i++) {
+                            str += `<li>
+                        <div class="aside"><img src="/images/f10.jpg" alt=""></div>
+                            <div class="c-body">
+                                <div class=" info">
+                                    <a href="#" class="username">
+                                        ${ res.data1[i].username}
+                                    </a>
+                                    <span>${formatTime(new Date(res.data1[i].time))}</span>
+                                </div>
+                                <div class="title"><a href="/users/article/${res.data1[i]._id}">${res.data1[i].title}</a></div>
+                                <div class="count">浏览次数：
+                                        ${res.data1[i].pv}
+                                </div>
+                                <div class="opr">
+                                    <a href="/admin/art-update/${res.data1[i]._id}" class="update">修改</a>
+                                    <a href="/admin/article/${res.data1[i]._id}" class="delete">删除</a>
+                                </div>
+                            </div>
+                        </li>`;
+                        }
+                        $('.list').html(str);
+                    }
+
+                },
+                error: function (error) {
+                    alert('用户名不存在')
+                }
+
+            })
+        }
+    })
+</script>
+</body>
+
+</html>

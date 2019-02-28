@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        async function timeout(){
+            //throw 'wwww'
+            return 'timeout'
+        }
+        //console.log(timeout());
+        timeout().then((res) => {
+            console.log(res)
+        }).catch(function(error){
+            console.log(error);
+        })
+        console.log('1111');
+        function sum(num){
+            return new Promise(function(resolve,reject){
+                setTimeout(() => {
+                    resolve(num*2);
+                },2000);
+            })
+        }
+        async function test(){
+            var r = await sum(1);
+            console.log(r);
+            var a = await sum(r);
+            console.log(a);
+        }
+        test();
+        console.log(9999);
+    </script>
+</body>
+
+</html>

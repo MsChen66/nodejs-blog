@@ -1,0 +1,29 @@
+<%include art-header%>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="art-info">
+        <table>
+            <tr>
+                <th>标题名</th>
+                <th>用户</th>
+                <th>操作</th>
+            </tr>
+            <% for(var i = 0;i <result.length;i++) { %>
+                    <tr>
+                        <td>
+                            <%= result[i].title%>
+                        </td>
+                        <td class="uname">
+                            <%= result[i].username%>
+                        </td>
+                        <td><a href="/admin/del-slide/<%= result[i]._id%>" class="insert">删除</a></td>
+                    </tr>
+                    <% } %>
+        </table>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+</body>
+
+</html>
